@@ -11,14 +11,17 @@ def base_de_datos():
     }
     return usuarios
 
-db = base_de_datos()
+#Aqui empieza el programa
+
+db = base_de_datos() #variable que simula la base de datos
 
 while True:
     print("Bienvenido a la biblioteca")
     print("1. Registrar usuario")
     print("2. Prestar libro")
     print("3. Devolver libro")
-    print("4. Salir")
+    print("4. Ver estadisticas de usuario")
+    print("5. Salir")
     opcion = input("Seleccione una opcion: ")
     
     if opcion == "1":
@@ -47,7 +50,7 @@ while True:
                 print(f"El libro '{libro}' ya esta prestado")
                 break
         else:
-            db[nombre]["libros"].append({"titulo": libro, "dias": dias})
+            db[nombre]["libros"].append({"titulo": libro, "dias": dias})#agregar el libro a la lista de prestamos del usuario
             print(f"Libro '{libro}' prestado por {dias} dias a {nombre}")
     
     elif opcion == "3":
@@ -66,6 +69,17 @@ while True:
             print(f"El libro '{libro}' no esta prestado a {nombre}")
     
     elif opcion == "4":
+        nombre = input("Ingrese su nombre de usuario: ")
+        if nombre not in db:
+            print("El usuario no existe, por favor registrese primero")
+            continue
+        if db[nombre]["libros"]:
+                total_prestamos = len(db[nombre]["libros"])
+                promedio_dias = sum(p["dias"] for p in db[nombre]["libros"]) / total_prestamos
+                print(f"Total de préstamos actuales: {total_prestamos}")
+                print(f"Promedio de días de préstamo: {int(promedio_dias)}")
+    
+    elif opcion == "5":
         print("Gracias por usar la biblioteca. Hasta luego!")
         break
     
