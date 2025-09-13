@@ -11,18 +11,37 @@ def base_de_datos():#funcion que simula una base de datos con usuarios y sus pre
     }
     return usuarios
 
+def mostrar_libros_y_usuarios(db):#funcion que muestra todos los libros prestados y usuarios con mas de un libro
+    print("\n--- Todos los libros prestados con su usuario y días de préstamo ---")
+    hay_prestamos = False
+    for usuario, datos in db.items():
+        for libro in datos["libros"]:
+            print(f"Usuario: {usuario} | Libro: {libro['titulo']} | Días de préstamo: {libro['dias']}")
+            hay_prestamos = True
+    if not hay_prestamos:
+        print("No hay libros prestados actualmente.")
+    print("\n--- Usuarios con más de un libro prestado ---")
+    hay_usuarios = False
+    for usuario, datos in db.items():
+        if len(datos["libros"]) > 1:
+            print(f"Usuario: {usuario} | Libros prestados: {len(datos['libros'])}")
+            hay_usuarios = True
+    if not hay_usuarios:
+        print("No hay usuarios con más de un libro prestado.")
+
 #Aqui empieza el programa
 
 db = base_de_datos() #variable que simula la base de datos
 
 while True:
-    print("-----Bienvenido a la biblioteca-----")
+    print("\n-----Bienvenido a la biblioteca-----")
     print("\n1. Registrar usuario")
     print("2. Prestar libro")
     print("3. Devolver libro")
     print("4. Ver estadisticas de usuario")
     print("5. Libros con préstamo mayor a 15 días")
-    print("6. Salir")
+    print("6. Mostrar todos los libros prestados y usuarios con más de un libro")
+    print("7. Salir")
     opcion = input("Seleccione una opcion: ")
     
     if opcion == "1":
@@ -94,6 +113,9 @@ while True:
             print("No hay libros prestados por más de 15 días.")
     
     elif opcion == "6":
+        mostrar_libros_y_usuarios(db)
+    
+    elif opcion == "7":
         print("\nGracias por usar la biblioteca. Hasta luego!")
         break
     
