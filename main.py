@@ -58,13 +58,14 @@ while True:
             print("El usuario no existe, por favor registrese primero")
             continue
             
-        if len(db[nombre]["libros"]) >= 3:
+        if len(db[nombre]["libros"]) >= 3:#limite de 3 libros por usuario
             print("No puede prestar mas de 3 libros a la vez")
             continue
             
         libro = input("\nIngrese el nombre del libro: ")
         dias = int(input("Ingrese los dias de prestamo: "))
-        if dias < 1 or dias > 30:
+        
+        if dias < 1 or dias > 30: #limite de dias entre 1 y 30
             print("El prestamo debe ser entre 1 y 30 dias")
             continue
         
