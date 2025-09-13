@@ -64,6 +64,9 @@ while True:
             
         libro = input("\nIngrese el nombre del libro: ")
         dias = int(input("Ingrese los dias de prestamo: "))
+        if dias < 1 or dias > 30:
+            print("El prestamo debe ser entre 1 y 30 dias")
+            continue
         
         for prestamo in db[nombre]["libros"]:
             if prestamo["titulo"] == libro:
